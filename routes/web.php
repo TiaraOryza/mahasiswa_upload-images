@@ -8,3 +8,5 @@ use Illuminate\Http\Request;
 Route::resource('mahasiswas', MahasiswaController::class);
 
 Route::get('/search', [MahasiswaController::class, 'search'])->name('search');
+
+?>

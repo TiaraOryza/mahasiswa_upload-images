@@ -23,6 +23,7 @@
             <th>Nama</th>
             <th>Kelas</th>
             <th>Jurusan</th>
+            <th>Image</th>
             <th>No_Handphone</th>
             <th>Email</th>
             <th>Tanggal_Lahir</th>
@@ -41,6 +42,7 @@
             <td>{{ $Mahasiswa->Nama }}</td>
             <td>{{ $Mahasiswa->Kelas->nama_kelas }}</td>
             <td>{{ $Mahasiswa->Jurusan }}</td>
+            <td> <img width="80px" src="{{asset('storage/'.$Mahasiswa->image)}}"> </td>
             <td>{{ $Mahasiswa->No_Handphone }}</td>
             <td>{{ $Mahasiswa->email }}</td>
             <td>{{ $Mahasiswa->TTL }}</td>
@@ -66,8 +68,8 @@
     </table>
             Halaman : {{ $mahasiswas->currentPage() }} <br/>
             Jumlah Data : {{ $mahasiswas->total() }} <br/>
-            Data Per Halaman : {{ $mahasiswas->perPage() }} <br/>
-            <br/>
+            Data Per Halaman : {{ $mahasiswas->perPage() }} <br/><br>
             {{ $mahasiswas->links() }}
+            <br>
 @endsection
 

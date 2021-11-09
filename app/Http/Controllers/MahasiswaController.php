@@ -41,8 +41,9 @@ class MahasiswaController extends Controller
             'Nama' => 'required',
             'Kelas' => 'required',
             'Jurusan' => 'required',
+            'image' => 'required',
             'No_Handphone' => 'required',
-            'Email' => 'required',
+            'email' => 'required',
             'TTL' => 'required',            
         ]);
 
@@ -50,13 +51,17 @@ class MahasiswaController extends Controller
         $mahasiswa->nim = $request->get('Nim');
         $mahasiswa->nama = $request->get('Nama');
         $mahasiswa->jurusan = $request->get('Jurusan');
+        if($request->file('image')){
+            $file = $request->file('image')->store('images', 'public');
+            $mahasiswa->image = $file;
+        }
         $mahasiswa->no_handphone = $request->get('No_Handphone');
-        //$mahasiswa->email = $request->get('Email');
+        $mahasiswa->email = $request->get('email');
         $mahasiswa->ttl = $request->get('TTL');
         $mahasiswa->save();
 
         $kelas = new Kelas;
-        $kelas = $request->get('Kelas');
+        $kelas = $request->get('nama_kelas');
         $mahasiswa->save();
 
         //fungsi eloquent untuk menambah data dngan relasi belongsTo
@@ -95,7 +100,10 @@ class MahasiswaController extends Controller
             'Nama' => 'required',
             'Kelas' => 'required',
             'Jurusan' => 'required',
+            'image' => 'required',
             'No_Handphone' => 'required',
+            'email' => 'required',
+            'TTL' => 'required',
         ]);
 
 //fungsi eloquent untuk mengupdate data inputan kita
@@ -114,7 +122,7 @@ Mahasiswa::find($Nim)->update($request->all());
      }
 
 
-     public function cari(Request $request)
+     public function search(Request $request)
 	{
 		// menangkap data pencarian
 		$keyword = $request->seacrh;
