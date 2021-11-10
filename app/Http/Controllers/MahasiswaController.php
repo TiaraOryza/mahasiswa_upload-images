@@ -6,6 +6,7 @@ use App\Models\Mahasiswa;
 use App\Models\Kelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class MahasiswaController extends Controller
 {
@@ -74,6 +75,35 @@ class MahasiswaController extends Controller
         //jika data berhasil ditambahkan, akan kembali ke halaman utama
         return redirect()->route('mahasiswas.index')
             ->with('success', 'Mahasiswa Berhasil Ditambahkan');
+    }
+
+    public function nilai($Nim)
+    {
+        $mahasiswa = Mahasiswa::with('kelas')->find($Nim);
+
+        $nilaiMhs = DB::table('nilaiMhs')
+            ->join('nilai', 'nilai.mata_kuliah', '=', 'nilaiMhs.mata_kuliah')
+            ->join('mahasiswa', 'mahasiswa.Nim', '=', 'nilai.Nim')
+            ->select('nilai.*', 'matakuliah.*')
+            ->where('Nim', $Nim)
+            ->get();
+        
+        return view('mahasiswas.nilaiMhs', compact('mahasiswa', 'nilaiMhs'));
+
+    }
+
+    public function cetak_pdf($Nim)
+    {
+        $mahasiswa = Mahasiswa::with('kelas')->find($Nim);
+        $nilaiMhs = DB::table('nilaiMhs')
+        ->join('nilai', 'nilai.mata_kuliah', '=', 'nilaiMhs.mata_kuliah')
+        ->join('mahasiswa', 'mahasiswa.Nim', '=', 'nilai.Nim')
+        ->select('nilai.*', 'matakuliah.*')
+        ->where('Nim', $Nim)
+        ->get();
+
+            $pdf = PDF::loadview('mahasiswas.pdf', compact('mahasiswa','nilaiMhs'));
+        return $pdf->stream();
     }
 
     public function show($Nim)
