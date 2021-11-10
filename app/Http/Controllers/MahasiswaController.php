@@ -83,12 +83,12 @@ class MahasiswaController extends Controller
 
         $nilaiMhs = DB::table('nilaiMhs')
             ->join('nilai', 'nilai.mata_kuliah', '=', 'nilaiMhs.mata_kuliah')
-            ->join('mahasiswa', 'mahasiswa.Nim', '=', 'nilai.Nim')
-            ->select('nilai.*', 'matakuliah.*')
-            ->where('Nim', $Nim)
+            ->join('mahasiswa', 'mahasiswa.Nim', '=', 'nilaiMhs.Nim')
+            ->select('nilaiMhs.*', 'nilai.*')
+            ->where('nilaiMhs.Nim', $Nim)
             ->get();
         
-        return view('mahasiswas.nilaiMhs', compact('mahasiswa', 'nilaiMhs'));
+        return view('mahasiswas.nilai', compact('mahasiswa', 'nilaiMhs'));
 
     }
 
@@ -97,9 +97,9 @@ class MahasiswaController extends Controller
         $mahasiswa = Mahasiswa::with('kelas')->find($Nim);
         $nilaiMhs = DB::table('nilaiMhs')
         ->join('nilai', 'nilai.mata_kuliah', '=', 'nilaiMhs.mata_kuliah')
-        ->join('mahasiswa', 'mahasiswa.Nim', '=', 'nilai.Nim')
-        ->select('nilai.*', 'matakuliah.*')
-        ->where('Nim', $Nim)
+        ->join('mahasiswa', 'mahasiswa.Nim', '=', 'nilaiMs.Nim')
+        ->select('nilaiMhs.*', 'nilai.*')
+        ->where('nilaiMhs.Nim', $Nim)
         ->get();
 
             $pdf = PDF::loadview('mahasiswas.pdf', compact('mahasiswa','nilaiMhs'));

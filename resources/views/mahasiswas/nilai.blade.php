@@ -23,7 +23,7 @@
                     <th>Semester</th>
                     <th>Nilai</th>
                 </tr>
-                @foreach ($nilai as $item)
+                @foreach ($nilaiMhs as $item)
                 <tr>
                     <td> {{ $item->mata_kuliah }} </td>  
                     <td> {{ $item->semester }} </td>

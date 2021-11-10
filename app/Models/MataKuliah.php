@@ -2,7 +2,7 @@
 
 namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\MahasiswaMataKuliah;
+use App\Models\MataKuliah;
 use Illuminate\Database\Eloquent\Model;
 
 class Matakuliah extends Model
@@ -15,7 +15,7 @@ class Matakuliah extends Model
         'sks',
     ];
 
-    public function mahasiswa_matakuliah(){
+    public function matakuliah(){
         return $this->hasMany(Nilai::class);
 
     }
