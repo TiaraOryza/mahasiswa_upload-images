@@ -97,7 +97,7 @@ class MahasiswaController extends Controller
         $mahasiswa = Mahasiswa::with('kelas')->find($Nim);
         $nilaiMhs = DB::table('nilaiMhs')
         ->join('nilai', 'nilai.mata_kuliah', '=', 'nilaiMhs.mata_kuliah')
-        ->join('mahasiswa', 'mahasiswa.Nim', '=', 'nilaiMs.Nim')
+        ->join('mahasiswa', 'mahasiswa.Nim', '=', 'nilaiMhs.Nim')
         ->select('nilaiMhs.*', 'nilai.*')
         ->where('nilaiMhs.Nim', $Nim)
         ->get();
